@@ -1,26 +1,804 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fb7185;
   --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-patrick);
+  --font-display: var(--font-caveat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+.paper {
+  background-color: #fffbeb;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 35%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 27px,
+      rgba(251, 113, 133, 0.16) 27px 28px
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(251, 191, 36, 0.25),
+    inset 0 0 28px rgba(251, 191, 36, 0.14),
+    0 22px 30px -14px rgba(159, 18, 57, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.tape {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.35) 0 6px,
+      transparent 6px 12px
+    ),
+    rgba(251, 207, 232, 0.85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-patrick), "Comic Sans MS", cursive;
 }
+
+html,
+body,
+button:disabled {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext x='2' y='26' font-size='26'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E")
+      16 16,
+    auto;
+}
+
+button:not(:disabled),
+a,
+[role="button"] {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext x='2' y='26' font-size='26'%3E%F0%9F%98%BA%3C/text%3E%3C/svg%3E")
+      16 16,
+    pointer;
+}
+
+.cat-cursor-on,
+.cat-cursor-on * {
+  cursor: none !important;
+}
+
+@keyframes cat-click {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  30% {
+    transform: scale(0.6, 0.75) rotate(-14deg);
+  }
+  65% {
+    transform: scale(1.3, 1.2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes paw-stamp {
+  0% {
+    transform: scale(0.3) rotate(-25deg);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.2) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(-10px) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meow-pop {
+  0% {
+    transform: translateY(6px) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(-6px) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-36px) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-cat-click {
+  animation: cat-click 0.4s ease-out;
+}
+
+.animate-paw-stamp {
+  animation: paw-stamp 0.9s ease-out forwards;
+}
+
+.animate-meow-pop {
+  animation: meow-pop 0.9s ease-out forwards;
+}
+
+@keyframes paper-unfold {
+  0% {
+    transform: perspective(900px) rotateX(-88deg);
+    filter: brightness(0.7);
+    opacity: 0.2;
+  }
+  55% {
+    transform: perspective(900px) rotateX(14deg);
+    filter: brightness(1.06);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(900px) rotateX(-4deg);
+  }
+  100% {
+    transform: perspective(900px) rotateX(0deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes photo-rise {
+  0% {
+    transform: translateY(70px) scale(0.3) rotate(-14deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10px) scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-4deg);
+    opacity: 1;
+  }
+}
+
+.animate-photo-rise {
+  animation: photo-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+@keyframes swipe-hint {
+  0%,
+  100% {
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes arrow-up {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-paper-unfold {
+  animation: paper-unfold 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: top center;
+}
+
+.animate-swipe-hint {
+  animation: swipe-hint 1.6s ease-in-out infinite;
+}
+
+.animate-arrow-up {
+  animation: arrow-up 1.4s ease-in-out infinite;
+}
+
+@keyframes float-balloon {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-22px) rotate(2deg);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.9;
+  }
+}
+
+.animate-float-balloon {
+  animation-name: float-balloon;
+  animation-duration: 6s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.animate-confetti-fall {
+  animation-name: confetti-fall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes gift-spin {
+  from {
+    transform: rotateX(-20deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-20deg) rotateY(360deg);
+  }
+}
+
+@keyframes cat-walk {
+  0% {
+    transform: translateX(-12vw) scaleX(1);
+  }
+  48% {
+    transform: translateX(88vw) scaleX(1);
+  }
+  50% {
+    transform: translateX(88vw) scaleX(-1);
+  }
+  98% {
+    transform: translateX(-12vw) scaleX(-1);
+  }
+  100% {
+    transform: translateX(-12vw) scaleX(1);
+  }
+}
+
+@keyframes cat-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sunflower-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.12, 0.9) rotate(3deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes smoke {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-26px) scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes cake-jump {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-12px) scale(1.04);
+  }
+  60% {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+.animate-flame {
+  animation: flame 0.6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.animate-smoke {
+  animation: smoke 1.2s ease-out forwards;
+}
+
+.animate-cake-jump {
+  animation: cake-jump 0.6s ease-out 2;
+}
+
+.animate-gift-spin {
+  animation: gift-spin 6s linear infinite;
+}
+
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(24px, -30px) scale(1.12);
+  }
+}
+
+@keyframes flag-swing {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes letter-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes burst-fly {
+  from {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 1;
+  }
+  to {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes balloon-rise {
+  0% {
+    top: 100%;
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+  100% {
+    top: -40%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pop-out {
+  from {
+    transform: translateY(0) scale(0.6);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-22px) scale(1.3);
+    opacity: 0;
+  }
+}
+
+.animate-blob-float {
+  animation: blob-float 10s ease-in-out infinite;
+}
+
+.animate-flag-swing {
+  animation: flag-swing 2.4s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.animate-letter-bounce {
+  animation: letter-bounce 1.8s ease-in-out infinite;
+}
+
+.animate-burst-fly {
+  animation: burst-fly 0.9s ease-out forwards;
+}
+
+.animate-balloon-rise {
+  animation-name: balloon-rise;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.animate-pop-out {
+  animation: pop-out 0.6s ease-out forwards;
+}
+
+@keyframes cake-wiggle {
+  0%,
+  80%,
+  100% {
+    transform: rotate(0deg);
+  }
+  85% {
+    transform: rotate(-3deg);
+  }
+  90% {
+    transform: rotate(3deg);
+  }
+  95% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes knife-cut {
+  0% {
+    transform: translate(-50%, -36px);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 64px);
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.25) rotate(8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gift-shake-a {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  20% {
+    transform: rotate(-12deg) scale(1.08);
+  }
+  40% {
+    transform: rotate(10deg) scale(1.08);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes gift-shake-b {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  20% {
+    transform: rotate(12deg) scale(1.08);
+  }
+  40% {
+    transform: rotate(-10deg) scale(1.08);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes surprise-pop {
+  0% {
+    transform: translate(-50%, 30px) scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(calc(-50% + var(--sx)), -60px) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--sx)), -48px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes coupon-flip {
+  from {
+    transform: perspective(500px) rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(500px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes player-in {
+  from {
+    transform: translateY(16px) scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes note-float {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-18px, -56px) scale(1.2) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes note-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-10deg);
+  }
+}
+
+@keyframes envelope-wiggle {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  78% {
+    transform: rotate(-4deg) scale(1.04);
+  }
+  86% {
+    transform: rotate(4deg) scale(1.04);
+  }
+  94% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes deck-in {
+  from {
+    transform: translateY(60px) scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes card-in {
+  from {
+    transform: translateY(14px) scale(0.97);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rise-up {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(16px, -60vh);
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-8px, -125vh);
+    opacity: 0;
+  }
+}
+
+@keyframes bg-pan {
+  0%,
+  100% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes dots-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -220px;
+  }
+}
+
+.animate-cake-wiggle {
+  animation: cake-wiggle 2.2s ease-in-out infinite;
+}
+
+.animate-knife-cut {
+  animation: knife-cut 0.6s ease-in forwards;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.5s ease-out both;
+}
+
+.animate-gift-shake-a {
+  animation: gift-shake-a 0.45s ease-in-out;
+}
+
+.animate-gift-shake-b {
+  animation: gift-shake-b 0.45s ease-in-out;
+}
+
+.animate-surprise-pop {
+  animation: surprise-pop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-coupon-flip {
+  animation: coupon-flip 0.6s ease-out 0.6s both;
+}
+
+.animate-player-in {
+  animation: player-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 6s linear infinite;
+}
+
+.animate-eq {
+  animation: eq 0.8s ease-in-out infinite;
+}
+
+.animate-note-float {
+  animation: note-float 2.1s ease-out infinite;
+}
+
+.animate-note-bounce {
+  animation: note-bounce 1s ease-in-out infinite;
+}
+
+.animate-envelope-wiggle {
+  animation: envelope-wiggle 2.5s ease-in-out infinite;
+}
+
+.animate-deck-in {
+  animation: deck-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.animate-card-in {
+  animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-rise-up {
+  animation-name: rise-up;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.animate-bg-pan {
+  animation: bg-pan 14s ease-in-out infinite;
+}
+
+.animate-dots-scroll {
+  animation: dots-scroll 12s linear infinite;
+}
+
+.animate-cat-walk {
+  animation: cat-walk 18s ease-in-out infinite;
+}
+
+.animate-cat-bob {
+  animation: cat-bob 1.6s ease-in-out infinite;
+}
+
+.animate-sunflower-sway {
+  animation: sunflower-sway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-balloon,
+  .animate-cat-walk,
+  .animate-cat-bob,
+  .animate-sunflower-sway,
+  .animate-gift-spin,
+  .animate-flame,
+  .animate-cake-jump,
+  .animate-blob-float,
+  .animate-flag-swing,
+  .animate-letter-bounce,
+  .animate-cake-wiggle,
+  .animate-envelope-wiggle,
+  .animate-rise-up,
+  .animate-bg-pan,
+  .animate-dots-scroll,
+  .animate-marquee,
+  .animate-note-float {
+    animation: none;
+  }
+}
+
+
+
+
+
